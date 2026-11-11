@@ -1,0 +1,30 @@
+{
+  "name": "@red-cup-engineering/npm-package-name-leaf-admission-service",
+  "version": "0.3.1",
+  "type": "module",
+  "private": false,
+  "description": "Admits one already-canonical lowercase npm package-name leaf.",
+  "exports": {
+    ".": "./src/admit-npm-package-name-leaf.mjs",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "src"
+  ],
+  "engines": {
+    "node": ">=24.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/red-cup-engineering/npm-package-engineering-services-section.git",
+    "directory": "services/npm-package-name-leaf-admission-service"
+  },
+  "license": "MIT",
+  "funding": {
+    "type": "individual",
+    "url": "https://github.com/561-group/.github/blob/main/TIPS.md"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.mjs"
+  }
+}

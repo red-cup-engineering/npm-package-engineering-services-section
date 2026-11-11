@@ -6,39 +6,3 @@
 	path = services/npm-package-set-services-section/services/node-runtime-release-materialization-service
 	url = https://github.com/red-cup-engineering/node-runtime-materialization-engineering-services-section.git
 	branch = main
-[submodule "services/npm-package-set-services-section/services/node-runtime-container-image-context-materialization-service"]
-	path = services/npm-package-set-services-section/services/node-runtime-container-image-context-materialization-service
-	url = https://github.com/red-cup-engineering/node-runtime-container-image-context-materialization-service.git
-	branch = main
-[submodule "services/project-npm-package-lock-regeneration-command-service"]
-	path = services/project-npm-package-lock-regeneration-command-service
-	url = https://github.com/red-cup-engineering/project-npm-package-lock-regeneration-command-service.git
-	branch = main
-[submodule "services/npm-scoped-package-name-formation-service"]
-	path = services/npm-scoped-package-name-formation-service
-	url = https://github.com/red-cup-engineering/npm-scoped-package-name-formation-service.git
-	branch = main
-[submodule "services/npm-package-version-admission-service"]
-	path = services/npm-package-version-admission-service
-	url = https://github.com/red-cup-engineering/npm-package-version-admission-service.git
-	branch = main
-[submodule "services/npm-package-name-leaf-admission-service"]
-	path = services/npm-package-name-leaf-admission-service
-	url = https://github.com/red-cup-engineering/npm-package-name-leaf-admission-service.git
-	branch = main
-[submodule "services/npm-package-manifest-normalization-service"]
-	path = services/npm-package-manifest-normalization-service
-	url = https://github.com/red-cup-engineering/npm-package-manifest-normalization-service.git
-	branch = main
-[submodule "services/npm-package-manifest-admission-service"]
-	path = services/npm-package-manifest-admission-service
-	url = https://github.com/red-cup-engineering/npm-package-manifest-admission-service.git
-	branch = main
-[submodule "services/npm-owner-admission-service"]
-	path = services/npm-owner-admission-service
-	url = https://github.com/red-cup-engineering/npm-owner-admission-service.git
-	branch = main
-[submodule "services/inspect-installed-npm-package-service"]
-	path = services/inspect-installed-npm-package-service
-	url = https://github.com/red-cup-engineering/inspect-installed-npm-package-service.git
-	branch = main

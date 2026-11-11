@@ -1,0 +1,34 @@
+{
+  "name": "@red-cup-engineering/npm-scoped-package-name-formation-service",
+  "version": "0.3.1",
+  "type": "module",
+  "private": false,
+  "description": "Forms one scoped npm package name from separately admitted owner and leaf inputs.",
+  "scripts": {
+    "test": "node --test test/*.test.mjs"
+  },
+  "exports": {
+    ".": "./src/form-npm-scoped-package-name.mjs",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "src"
+  ],
+  "engines": {
+    "node": ">=24.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/red-cup-engineering/npm-package-engineering-services-section.git",
+    "directory": "services/npm-scoped-package-name-formation-service"
+  },
+  "dependencies": {
+    "@red-cup-engineering/npm-owner-admission-service": "0.2.0",
+    "@red-cup-engineering/npm-package-name-leaf-admission-service": "0.3.0"
+  },
+  "license": "MIT",
+  "funding": {
+    "type": "individual",
+    "url": "https://github.com/561-group/.github/blob/main/TIPS.md"
+  }
+}
