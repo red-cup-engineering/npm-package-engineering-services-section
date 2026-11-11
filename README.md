@@ -8,3 +8,9 @@
 <!-- 561-group-standards:badges:end -->
 
 Holds services that read, admit, project, and apply explicit npm package carriers.
+
+## Verification
+
+Run `npm test` for package operations and command integrations. Pure admission
+cases are maintained in their owning admission services. The shared development
+runner is supplied by this section.

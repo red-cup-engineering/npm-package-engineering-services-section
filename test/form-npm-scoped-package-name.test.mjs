@@ -12,19 +12,8 @@ const request = {
   leaf: "thing-service",
 };
 
-test("forms a scoped npm package name from already admitted parts", () => {
-  assert.equal(formNpmScopedPackageName(request), "@example/thing-service");
-});
-
-test("refuses parts that would require repair", () => {
-  assert.throws(
-    () => formNpmScopedPackageName({ ...request, owner: "@Example" }),
-    TypeError,
-  );
-});
-
 test("the command maps the same formation over NDJSON", () => {
-  const script = fileURLToPath(new URL("@red-cup-engineering/npm-scoped-package-name-formation-service", import.meta.url));
+  const script = fileURLToPath(new URL("../scripts/form-npm-scoped-package-name.mjs", import.meta.url));
   const result = spawnSync(process.execPath, [script], {
     input: `${JSON.stringify(request)}\n`,
     encoding: "utf8",

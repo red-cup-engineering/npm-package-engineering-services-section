@@ -13,29 +13,8 @@ const manifest = {
 };
 const candidate = { type: "NpmPackageManifestCandidate", version: 1, manifest };
 
-test("admits and preserves a complete manifest", () => {
-  assert.deepEqual(admitNpmPackageManifest(candidate), {
-    type: "NpmPackageManifest",
-    version: 1,
-    manifest,
-  });
-});
-
-test("refuses values that would require repair", () => {
-  for (const rejected of [
-    { name: "@Scope/example" },
-    { version: "workspace:*" },
-    { scripts: { test: 3 } },
-  ]) {
-    assert.throws(
-      () => admitNpmPackageManifest({ ...candidate, manifest: rejected }),
-      TypeError,
-    );
-  }
-});
-
 test("the command maps the same admission over NDJSON", () => {
-  const script = fileURLToPath(new URL("@red-cup-engineering/npm-package-manifest-admission-service", import.meta.url));
+  const script = fileURLToPath(new URL("../scripts/admit-npm-package-manifest.mjs", import.meta.url));
   const result = spawnSync(process.execPath, [script], {
     input: `${JSON.stringify(candidate)}\n`,
     encoding: "utf8",
