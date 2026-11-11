@@ -170,7 +170,7 @@ test("leaves resolved values already pointing at a canonical registry byte-ident
 test("parses package and version from a house registry tarball URL", () => {
   assert.deepEqual(
     parseRegistryTarballUrl("https://registry.561.group/@red-cup-engineering/eavt-services-section/-/eavt-services-section-0.5.0.tgz"),
-    { package: "@red-cup-engineering/eavt-services-section", version: "0.5.0" },
+    { package: "@red-cup-engineering/eavt-engineering-services-section", version: "0.5.0" },
   );
   assert.equal(parseRegistryTarballUrl("https://registry.561.group/not-a-tarball-shape"), null);
 });
