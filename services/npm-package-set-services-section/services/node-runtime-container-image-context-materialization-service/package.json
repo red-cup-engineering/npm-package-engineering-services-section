@@ -16,7 +16,7 @@
   ],
   "dependencies": {
     "@red-cup-engineering/cryptographic-computer-data-engineering-services-section": "^0.3.3",
-    "@red-cup-engineering/node-runtime-release-materialization-service": "^0.11.1"
+    "@red-cup-engineering/node-runtime-materialization-engineering-services-section": "^0.11.1"
   },
   "scripts": {
     "test": "node --test test/*.test.mjs",

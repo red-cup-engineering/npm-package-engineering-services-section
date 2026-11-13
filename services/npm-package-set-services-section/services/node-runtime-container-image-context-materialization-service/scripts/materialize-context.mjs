@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { readFile } from "node:fs/promises";
 import { materializeNodeRuntimeContainerImageContext } from "../src/materialize-context.mjs";
-import * as runtimeReleaseAuthority from "@red-cup-engineering/node-runtime-release-materialization-service";
+import * as runtimeReleaseAuthority from "@red-cup-engineering/node-runtime-materialization-engineering-services-section";
 
 function option(name, required = true) {
   const index = process.argv.indexOf(name), value = index < 0 ? undefined : process.argv[index + 1];

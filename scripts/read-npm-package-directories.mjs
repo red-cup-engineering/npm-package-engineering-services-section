@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-import { freezeJson } from "@red-cup-engineering/json-services-section";
-import { isJsonRecord } from "@red-cup-engineering/json-services-section";
-import { parseLines, serializeLines } from "@red-cup-engineering/jsonl-services-section";
+import { freezeJson } from "@red-cup-engineering/json-engineering-services-section";
+import { isJsonRecord } from "@red-cup-engineering/json-engineering-services-section";
+import { parseLines, serializeLines } from "@red-cup-engineering/jsonl-engineering-services-section";
 import { selectNpmPackageManifestPaths } from "@red-cup-engineering/computer-filepath-engineering-services-section/select-npm-package-manifest-paths";
 import { walkPosixPaths } from "@red-cup-engineering/computer-filepath-engineering-services-section/walk-posix-paths";
 import { pathParent as projectFilepathDirectory } from "@red-cup-engineering/computer-filepath-engineering-services-section/posix";
@@ -11,7 +11,7 @@ import { resolve } from "node:path";
 
 import operationInputSchema from "../data/records/read-npm-package-directories.input.schema.json" with { type: "json" };
 import operationOutputSchema from "../data/records/read-npm-package-directories.output.schema.json" with { type: "json" };
-import { runJavascriptNodeOperation } from "@red-cup-engineering/javascript-node-services-section/operation";
+import { runJavascriptNodeOperation } from "@red-cup-engineering/javascript-node-engineering-services-section/operation";
 
 /**
  * Reads npm package directories beneath one explicit filesystem root.

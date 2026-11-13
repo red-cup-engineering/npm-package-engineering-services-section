@@ -1,12 +1,12 @@
 #!/usr/bin/env node
-import { freezeJson } from "@red-cup-engineering/json-services-section";
-import { isJsonRecord } from "@red-cup-engineering/json-services-section";
-import { parseLines, serializeLines } from "@red-cup-engineering/jsonl-services-section";
-import { projectJsonRecordKeys } from "@red-cup-engineering/json-services-section/project-json-record-keys";
+import { freezeJson } from "@red-cup-engineering/json-engineering-services-section";
+import { isJsonRecord } from "@red-cup-engineering/json-engineering-services-section";
+import { parseLines, serializeLines } from "@red-cup-engineering/jsonl-engineering-services-section";
+import { projectJsonRecordKeys } from "@red-cup-engineering/json-engineering-services-section/project-json-record-keys";
 
 import operationInputSchema from "../data/records/project-npm-package-info.input.schema.json" with { type: "json" };
 import operationOutputSchema from "../data/records/project-npm-package-info.output.schema.json" with { type: "json" };
-import { runJavascriptNodeOperation } from "@red-cup-engineering/javascript-node-services-section/operation";
+import { runJavascriptNodeOperation } from "@red-cup-engineering/javascript-node-engineering-services-section/operation";
 
 /**
  * Projects explicitly selected keys from an admitted npm package manifest.

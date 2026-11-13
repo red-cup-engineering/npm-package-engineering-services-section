@@ -1,14 +1,14 @@
 #!/usr/bin/env node
-import { freezeJson } from "@red-cup-engineering/json-services-section";
-import { isJsonRecord } from "@red-cup-engineering/json-services-section";
-import { parseLines, serializeLines } from "@red-cup-engineering/jsonl-services-section";
+import { freezeJson } from "@red-cup-engineering/json-engineering-services-section";
+import { isJsonRecord } from "@red-cup-engineering/json-engineering-services-section";
+import { parseLines, serializeLines } from "@red-cup-engineering/jsonl-engineering-services-section";
 
-import { readNpmPackageDirectories } from "@red-cup-engineering/npm-package-services-section/read-npm-package-directories";
-import { readNpmPackageInfo } from "@red-cup-engineering/npm-package-services-section/read-npm-package-info";
+import { readNpmPackageDirectories } from "@red-cup-engineering/npm-package-engineering-services-section/read-npm-package-directories";
+import { readNpmPackageInfo } from "@red-cup-engineering/npm-package-engineering-services-section/read-npm-package-info";
 
 import operationInputSchema from "../data/records/read-npm-package-set-info.input.schema.json" with { type: "json" };
 import operationOutputSchema from "../data/records/read-npm-package-set-info.output.schema.json" with { type: "json" };
-import { runJavascriptNodeOperation } from "@red-cup-engineering/javascript-node-services-section/operation";
+import { runJavascriptNodeOperation } from "@red-cup-engineering/javascript-node-engineering-services-section/operation";
 
 /**
  * Reads selected information from every npm package directory beneath one root.

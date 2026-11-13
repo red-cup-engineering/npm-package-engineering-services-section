@@ -1,4 +1,4 @@
-import { freezeJson } from "@red-cup-engineering/json-services-section/freeze-json";
+import { freezeJson } from "@red-cup-engineering/json-engineering-services-section/freeze-json";
 /**
  * Restored 2026-09-21 as this service's own module (recovered from the
  * pnpm-engine-declaration-normalization-service package deleted 2026-08-14,

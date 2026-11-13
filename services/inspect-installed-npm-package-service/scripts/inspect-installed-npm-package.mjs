@@ -4,11 +4,11 @@ import { once } from "node:events";
 import { builtinModules, createRequire } from "node:module";
 import { dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
-import { freezeJson } from "@red-cup-engineering/json-services-section";
-import { parseLines, serializeLines } from "@red-cup-engineering/jsonl-services-section";
-import { parseJavascriptArgv } from "@red-cup-engineering/javascript-node-services-section/argv";
+import { freezeJson } from "@red-cup-engineering/json-engineering-services-section";
+import { parseLines, serializeLines } from "@red-cup-engineering/jsonl-engineering-services-section";
+import { parseJavascriptArgv } from "@red-cup-engineering/javascript-node-engineering-services-section/argv";
 import { readJavascriptFileExportDocumentation } from "@red-cup-engineering/read-javascript-file-export-documentation-service";
-import { readJavascriptFileImports } from "@red-cup-engineering/javascript-file-import-services-section/read-javascript-file-imports";
+import { readJavascriptFileImports } from "@red-cup-engineering/javascript-file-import-engineering-services-section/read-javascript-file-imports";
 
 import { assertInspectionRequest, executeInspectionCommand, inspectInstalledNpmPackageResolution } from "../src/installed-package-resolution.mjs";
 export { inspectInstalledNpmPackageResolution } from "../src/installed-package-resolution.mjs";

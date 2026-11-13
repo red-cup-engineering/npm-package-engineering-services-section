@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 import path from "node:path";
-import { freezeJson } from "@red-cup-engineering/json-services-section";
+import { freezeJson } from "@red-cup-engineering/json-engineering-services-section";
 
 import operationInputSchema from "../data/records/schema/project-npm-package-lock-regeneration-command.input.schema.json" with { type: "json" };
 import operationOutputSchema from "../data/records/schema/project-npm-package-lock-regeneration-command.output.schema.json" with { type: "json" };
-import { runJavascriptNodeOperation } from "@red-cup-engineering/javascript-node-services-section/operation";
+import { runJavascriptNodeOperation } from "@red-cup-engineering/javascript-node-engineering-services-section/operation";
 
 /**
  * Projects one explicit request to the shell-free command which regenerates its package lock.

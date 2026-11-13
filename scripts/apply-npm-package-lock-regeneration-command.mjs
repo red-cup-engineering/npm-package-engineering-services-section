@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 import path from "node:path";
 import { executeJavascriptNodeCommand } from "@red-cup-engineering/execute-javascript-node-command-service";
-import { freezeJson } from "@red-cup-engineering/json-services-section";
+import { freezeJson } from "@red-cup-engineering/json-engineering-services-section";
 
 import operationInputSchema from "../data/records/apply-npm-package-lock-regeneration-command.input.schema.json" with { type: "json" };
 import operationOutputSchema from "../data/records/apply-npm-package-lock-regeneration-command.output.schema.json" with { type: "json" };
-import { runJavascriptNodeOperation } from "@red-cup-engineering/javascript-node-services-section/operation";
+import { runJavascriptNodeOperation } from "@red-cup-engineering/javascript-node-engineering-services-section/operation";
 
 /**
  * Applies one admitted npm package-lock regeneration command.

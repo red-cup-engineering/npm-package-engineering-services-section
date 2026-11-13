@@ -1,8 +1,8 @@
 import { admitNpmPackageNameLeaf } from "@red-cup-engineering/npm-package-name-leaf-admission-service";
 import { admitNpmPackageVersion } from "@red-cup-engineering/npm-package-version-admission-service";
 import { formNpmScopedPackageName } from "@red-cup-engineering/npm-scoped-package-name-formation-service";
-import { freezeJson } from "@red-cup-engineering/json-services-section/freeze-json";
-import { isJsonRecord } from "@red-cup-engineering/json-services-section/is-json-record";
+import { freezeJson } from "@red-cup-engineering/json-engineering-services-section/freeze-json";
+import { isJsonRecord } from "@red-cup-engineering/json-engineering-services-section/is-json-record";
 
 function admitName(name) {
   if (name.startsWith("@")) {

@@ -5,9 +5,9 @@ import { lstat, mkdtemp, readFile, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { basename, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { promisify } from "node:util";
-import { freezeJson } from "@red-cup-engineering/json-services-section";
-import { parseLines, serializeLines } from "@red-cup-engineering/jsonl-services-section";
-import { parseJavascriptArgv } from "@red-cup-engineering/javascript-node-services-section/argv";
+import { freezeJson } from "@red-cup-engineering/json-engineering-services-section";
+import { parseLines, serializeLines } from "@red-cup-engineering/jsonl-engineering-services-section";
+import { parseJavascriptArgv } from "@red-cup-engineering/javascript-node-engineering-services-section/argv";
 import { readJavascriptFileExportDocumentation } from "@red-cup-engineering/read-javascript-file-export-documentation-service";
 
 const executeNpm = promisify(execFile);

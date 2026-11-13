@@ -48,7 +48,7 @@ through that descriptor, and copied from those admitted bytes. Secret scanning
 covers the complete byte carrier regardless of file size or embedded NULs.
 
 The library accepts the release verification owner explicitly. The packaged
-CLI supplies `@red-cup-engineering/node-runtime-release-materialization-service`:
+CLI supplies `@red-cup-engineering/node-runtime-materialization-engineering-services-section`:
 
 ```bash
 materialize-node-runtime-container-image-context \

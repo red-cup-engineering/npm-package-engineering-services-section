@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // The stdin/stdout CLI entry for normalizePnpmEngineDeclaration, moved out of
 // src/normalize-pnpm-engine-declaration.mjs -- see that file's own header comment.
-import { canonicalJson } from "@red-cup-engineering/json-services-section/canonical-json";
+import { canonicalJson } from "@red-cup-engineering/json-engineering-services-section/canonical-json";
 import { normalizePnpmEngineDeclaration } from "../src/normalize-pnpm-engine-declaration.mjs";
 import { collectStreamText } from "../src/stream-text.mjs";
 

@@ -3,7 +3,7 @@ import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import test from "node:test";
 
-import { parseLines, serializeLines } from "@red-cup-engineering/jsonl-services-section";
+import { parseLines, serializeLines } from "@red-cup-engineering/jsonl-engineering-services-section";
 import { projectNpmPackageLockRegenerationCommand } from "../scripts/project-npm-package-lock-regeneration-command.mjs";
 
 const request = {

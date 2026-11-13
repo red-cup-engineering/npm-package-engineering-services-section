@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { readFile } from "node:fs/promises";
-import { canonical, parse } from "@red-cup-engineering/json-services-section";
+import { canonical, parse } from "@red-cup-engineering/json-engineering-services-section";
 import { normalizeJsnodePackageManifest } from "../src/normalize-jsnode-package-manifest.mjs";
 
 if (import.meta.main) {
