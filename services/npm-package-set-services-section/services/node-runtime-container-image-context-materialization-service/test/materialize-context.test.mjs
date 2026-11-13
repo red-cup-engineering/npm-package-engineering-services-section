@@ -12,7 +12,7 @@ import {
   materializeNodeRuntimeReleaseCatalog,
   verifyNodeRuntimeRelease,
   verifyNodeRuntimeReleaseCatalog,
-} from "../../node-runtime-release-materialization-service/src/materialize-release.mjs";
+} from "../../node-runtime-materialization-engineering-services-section/src/materialize-release.mjs";
 
 const runtimeReleaseAuthority = { verifyNodeRuntimeRelease, verifyNodeRuntimeReleaseCatalog };
 
