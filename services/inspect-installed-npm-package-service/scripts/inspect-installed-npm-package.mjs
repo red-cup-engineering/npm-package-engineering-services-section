@@ -6,7 +6,7 @@ import { dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { freezeJson } from "@red-cup-engineering/json-engineering-services-section";
 import { parseLines, serializeLines } from "@red-cup-engineering/jsonl-engineering-services-section";
-import { parseJavascriptArgv } from "@red-cup-engineering/javascript-node-engineering-services-section/argv";
+import { parseArgs } from "node:util";
 import { readJavascriptFileExportDocumentation } from "@red-cup-engineering/read-javascript-file-export-documentation-service";
 import { readJavascriptFileImports } from "@red-cup-engineering/javascript-file-import-engineering-services-section/read-javascript-file-imports";
 
@@ -173,8 +173,8 @@ export async function inspectInstalledNpmPackage(request) {
 }
 
 if (import.meta.main) {
-  const parsed = parseJavascriptArgv({ type: "JavascriptArgvParsingRequest", version: 1, argumentVector: { type: "JavascriptArgumentVector", version: 1, arguments: process.argv }, options: { help: { type: "boolean", short: "h", default: false } }, allowPositionals: false, strict: true });
-  if (parsed.options.help) {
+  const parsed = parseArgs({ args: process.argv.slice(2), options: { help: { type: "boolean", short: "h", default: false } }, allowPositionals: false, strict: true });
+  if (parsed.values.help) {
     const source = await readFile(new URL(import.meta.url), "utf8");
     const [documentation] = readJavascriptFileExportDocumentation({ type: "TextFileRead", path: "scripts/inspect-installed-npm-package.mjs", text: source });
     const helpOutput = `${documentation.name} — ${documentation.description}\n\n${documentation.signature}\n`;
