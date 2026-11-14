@@ -1,6 +1,6 @@
 {
   "name": "@red-cup-engineering/npm-package-manifest-admission-service",
-  "version": "0.3.1",
+  "version": "0.3.2-dev.0",
   "type": "module",
   "private": false,
   "description": "Admits one npm package manifest candidate without changing its fields.",
@@ -12,7 +12,8 @@
     "test": "node --test test/*.test.mjs"
   },
   "files": [
-    "src"
+    "src",
+    "test/admit-npm-package-manifest.test.mjs"
   ],
   "engines": {
     "node": ">=24.2.0"
@@ -23,14 +24,17 @@
     "directory": "services/npm-package-manifest-admission-service"
   },
   "dependencies": {
-    "@red-cup-engineering/npm-package-name-leaf-admission-service": "0.3.0",
-    "@red-cup-engineering/npm-package-version-admission-service": "0.2.0",
-    "@red-cup-engineering/npm-scoped-package-name-formation-service": "0.3.0",
-    "@red-cup-engineering/json-engineering-services-section": "0.4.0"
+    "@red-cup-engineering/npm-package-name-leaf-admission-service": "0.3.1",
+    "@red-cup-engineering/npm-package-version-admission-service": "0.2.1",
+    "@red-cup-engineering/npm-scoped-package-name-formation-service": "0.3.2-dev.0",
+    "@red-cup-engineering/json-engineering-services-section": "0.4.3-dev.0"
   },
   "license": "MIT",
   "funding": {
     "type": "individual",
     "url": "https://github.com/561-group/.github/blob/main/TIPS.md"
-  }
+  },
+  "receivingTests": [
+    "test/admit-npm-package-manifest.test.mjs"
+  ]
 }

@@ -15,8 +15,24 @@ Run `npm test` for package operations and command integrations. Pure admission
 cases are maintained in their owning admission services. The shared development
 runner is supplied by this section.
 
-## Native packing prerequisite
+## Native package receiving
 
-The packing face uses Node's strict native argument parser for `--help`/`-h`; unknown options and positional arguments refuse. Packing still disables lifecycle scripts, uses an isolated cache, validates npm's reported artifact, and returns the observed receipt. The original packing suite and native CLI argument suite are the explicit installed receiving profile. All other source tests and public faces remain present; this bounded profile does not establish their qualification. In particular, other npm operations still depend on legacy runtime APIs and are not repaired by this change.
+The whole package uses the current Function operation interpreter for its
+authored command faces. No retired JavaScriptNode operation facade is restored.
+All existing public package reading, admission, projection, packing and lock
+regeneration faces remain; their used suppliers are not pruned to narrow the
+installation graph. The shared runner executes all fifteen original source
+programs; the same complete portable test set is shipped and explicitly enrolled
+for receiving.
 
-The declared JSON, JSONL and export-documentation suppliers identify the genuine source/archive prerequisites used for this packing qualification. No frozen dependency installation, registry issuance, deployment, or other npm-operation qualification is claimed; existing lock and upstream approval constraints remain.
+Packing continues to use Node's strict native argument parser for `--help`/`-h`;
+unknown options and positional arguments refuse. It disables lifecycle scripts,
+uses an isolated cache, validates npm's reported artifact and returns observed
+evidence. Lock regeneration retains its exact install/package-lock-only/ignore-scripts
+command admission and delegates native execution to the current Execute owner.
+
+Exact dependency selections identify the genuine current source/artifact cohort.
+Source and packed receiving do not establish issued-registry availability or
+this repository's full frozen development graph; the shared development test
+runner and its own transitive prerequisites remain separately qualified.
+No registry publication, deployment or held upstream approval is inferred.

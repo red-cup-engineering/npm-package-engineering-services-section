@@ -6,7 +6,7 @@ import { projectJsonRecordKeys } from "@red-cup-engineering/json-engineering-ser
 
 import operationInputSchema from "../data/records/project-npm-package-info.input.schema.json" with { type: "json" };
 import operationOutputSchema from "../data/records/project-npm-package-info.output.schema.json" with { type: "json" };
-import { runJavascriptNodeOperation } from "@red-cup-engineering/javascript-node-engineering-services-section/operation";
+import { runJavascriptNodeOperation } from "@red-cup-engineering/node-js-function-engineering-services-section/operation";
 
 /**
  * Projects explicitly selected keys from an admitted npm package manifest.

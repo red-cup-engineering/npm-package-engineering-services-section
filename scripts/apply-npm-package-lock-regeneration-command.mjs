@@ -5,7 +5,7 @@ import { freezeJson } from "@red-cup-engineering/json-engineering-services-secti
 
 import operationInputSchema from "../data/records/apply-npm-package-lock-regeneration-command.input.schema.json" with { type: "json" };
 import operationOutputSchema from "../data/records/apply-npm-package-lock-regeneration-command.output.schema.json" with { type: "json" };
-import { runJavascriptNodeOperation } from "@red-cup-engineering/javascript-node-engineering-services-section/operation";
+import { runJavascriptNodeOperation } from "@red-cup-engineering/node-js-function-engineering-services-section/operation";
 
 /**
  * Applies one admitted npm package-lock regeneration command.

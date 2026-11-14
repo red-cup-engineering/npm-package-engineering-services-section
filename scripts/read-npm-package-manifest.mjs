@@ -8,7 +8,7 @@ import { projectNpmPackageManifestPath } from "@red-cup-engineering/computer-fil
 
 import operationInputSchema from "../data/records/read-npm-package-manifest.input.schema.json" with { type: "json" };
 import operationOutputSchema from "../data/records/read-npm-package-manifest.output.schema.json" with { type: "json" };
-import { runJavascriptNodeOperation } from "@red-cup-engineering/javascript-node-engineering-services-section/operation";
+import { runJavascriptNodeOperation } from "@red-cup-engineering/node-js-function-engineering-services-section/operation";
 
 /**
  * Reads and admits package.json from one explicit npm package directory.

@@ -11,7 +11,7 @@ import { resolve } from "node:path";
 
 import operationInputSchema from "../data/records/read-npm-package-directories.input.schema.json" with { type: "json" };
 import operationOutputSchema from "../data/records/read-npm-package-directories.output.schema.json" with { type: "json" };
-import { runJavascriptNodeOperation } from "@red-cup-engineering/javascript-node-engineering-services-section/operation";
+import { runJavascriptNodeOperation } from "@red-cup-engineering/node-js-function-engineering-services-section/operation";
 
 /**
  * Reads npm package directories beneath one explicit filesystem root.
