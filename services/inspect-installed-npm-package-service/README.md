@@ -8,3 +8,11 @@
 <!-- 561-group-standards:badges:end -->
 
 Reads the identity, declared faces, JavaScript syntax, and reachable import closure of one installed npm package.
+
+## Native inspection prerequisite
+
+The command uses Node's strict native argument parser for `--help`/`-h`; unknown options and positional arguments refuse. All original inspection, resolution and installed-face tests, plus native CLI argument tests, are shipped and explicitly enrolled for installed receiving. Inspection retains actual native resolution, syntax checks, import-face execution and identity refusals; it does not install or repair inspected packages.
+
+The current file-import reader uses the owning parser's ESM reference evidence, including decoded literal specifiers and authored UTF-16 interior offsets. It rejects source the parser cannot admit rather than manufacturing partial regex evidence. Inspection first records native syntax failures and skips those files' reference traversal. This remains an ESM reference profile, not a new CommonJS dependency-closure claim.
+
+The explicit supplier versions are genuine source/archive prerequisites, not evidence of frozen installation, registry issuance or deployment. Existing lock and upstream approval constraints remain.
