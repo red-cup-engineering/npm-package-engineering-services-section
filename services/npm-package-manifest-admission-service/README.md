@@ -8,3 +8,7 @@
 <!-- 561-group-standards:badges:end -->
 
 Admits one npm package manifest candidate without changing its fields.
+
+## Native receiving
+
+The development candidate selects the genuine current admission suppliers explicitly and ships the original portable public-package tests as `receivingTests`. Source and extracted-package execution qualify these behaviors against the supplied native cohort. They do not establish registry issuance, frozen registry installation, or production activation; those remain separate receiving requirements. Runtime algorithms and original assertions are unchanged.

@@ -7,7 +7,7 @@ import { readNpmPackageManifest } from "@red-cup-engineering/npm-package-enginee
 
 import operationInputSchema from "../data/records/read-npm-package-info.input.schema.json" with { type: "json" };
 import operationOutputSchema from "../data/records/read-npm-package-info.output.schema.json" with { type: "json" };
-import { runJavascriptNodeOperation } from "@red-cup-engineering/javascript-node-engineering-services-section/operation";
+import { runJavascriptNodeOperation } from "@red-cup-engineering/node-js-function-engineering-services-section/operation";
 
 /**
  * Reads selected information from one explicit npm package directory.

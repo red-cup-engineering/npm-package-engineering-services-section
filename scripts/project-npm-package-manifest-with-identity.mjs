@@ -5,7 +5,7 @@ import { admitNpmPackageVersion } from "@red-cup-engineering/npm-package-version
 
 import operationInputSchema from "../data/records/project-npm-package-manifest-with-identity.input.schema.json" with { type: "json" };
 import operationOutputSchema from "../data/records/project-npm-package-manifest-with-identity.output.schema.json" with { type: "json" };
-import { runJavascriptNodeOperation } from "@red-cup-engineering/javascript-node-engineering-services-section/operation";
+import { runJavascriptNodeOperation } from "@red-cup-engineering/node-js-function-engineering-services-section/operation";
 
 /**
  * Projects a supplied npm manifest body with an explicit admitted identity.
