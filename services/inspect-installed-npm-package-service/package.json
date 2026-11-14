@@ -1,6 +1,6 @@
 {
   "name": "@red-cup-engineering/inspect-installed-npm-package-service",
-  "version": "0.3.3-dev.0",
+  "version": "0.3.3-dev.1",
   "description": "Reads the identity, declared faces, JavaScript syntax, and reachable import closure of one installed npm package.",
   "repository": {
     "type": "git",
@@ -24,7 +24,7 @@
     "@red-cup-engineering/json-engineering-services-section": "0.4.3-dev.0",
     "@red-cup-engineering/jsonl-engineering-services-section": "0.1.3-dev.0",
     "@red-cup-engineering/javascript-file-import-engineering-services-section": "0.2.0-dev.0",
-    "@red-cup-engineering/read-javascript-file-export-documentation-service": "0.2.1-dev.0"
+    "@red-cup-engineering/read-javascript-file-export-documentation-service": "0.2.1-dev.1"
   },
   "scripts": {
     "test": "run-package-tests",

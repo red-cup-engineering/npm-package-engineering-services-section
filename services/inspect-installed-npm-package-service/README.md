@@ -16,3 +16,5 @@ The command uses Node's strict native argument parser for `--help`/`-h`; unknown
 The current file-import reader uses the owning parser's ESM reference evidence, including decoded literal specifiers and authored UTF-16 interior offsets. It rejects source the parser cannot admit rather than manufacturing partial regex evidence. Inspection first records native syntax failures and skips those files' reference traversal. This remains an ESM reference profile, not a new CommonJS dependency-closure claim.
 
 The explicit supplier versions are genuine source/archive prerequisites, not evidence of frozen installation, registry issuance or deployment. Existing lock and upstream approval constraints remain.
+
+The `0.3.3-dev.1` inspection candidate selects ExportDoc `0.2.1-dev.1` and verifies the original source and shipped receiving tests using that supplier from the qualified native npm-owner frozen cohort. No inspection algorithm or test assertion changes. This is native cohort evidence, not registry issuance or a frozen installation claim for this inspection package.
