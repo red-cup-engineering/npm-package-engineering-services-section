@@ -1,0 +1,28 @@
+{
+  "name": "@red-cup-engineering/npm-package-version-admission-service",
+  "version": "0.2.5-dev.0",
+  "type": "module",
+  "private": false,
+  "description": "Admits npm package versions and dependency ranges.",
+  "exports": {
+    ".": "./src/admit-npm-package-version.mjs",
+    "./semver-range": "./src/semver-range.mjs",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "src"
+  ],
+  "engines": {
+    "node": ">=24.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/red-cup-engineering/npm-package-engineering-services-section.git",
+    "directory": "services/npm-package-version-admission-service"
+  },
+  "license": "MIT",
+  "funding": {
+    "type": "individual",
+    "url": "https://github.com/561-group/.github/blob/main/TIPS.md"
+  }
+}
