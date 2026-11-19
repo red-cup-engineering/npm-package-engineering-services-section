@@ -103,9 +103,9 @@ if (import.meta.main) {
     process.stdin.setEncoding("utf8");
     let text = "";
     for await (const chunk of process.stdin) text += chunk;
-    const receipts = [];
-    for (const request of parseLines(text)) receipts.push(await packNpmPackage(request));
-    const output = serializeLines(receipts);
+    const records = [];
+    for (const request of parseLines(text)) records.push(await packNpmPackage(request));
+    const output = serializeLines(records);
     if (!process.stdout.write(output)) await once(process.stdout, "drain");
   }
 }

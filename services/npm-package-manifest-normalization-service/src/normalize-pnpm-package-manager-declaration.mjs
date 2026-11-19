@@ -9,16 +9,16 @@ import { freezeJson } from "@red-cup-engineering/json-engine/freeze-json";
  * scripts/normalize-pnpm-package-manager-declaration.mjs -- see
  * normalize-npm-package-lifecycle-scripts.mjs's header comment for why.
  */
-import { admitNpmPackageManifest } from "@red-cup-engineering/npm-package-manifest-admission-service";
+import { validateNpmPackageManifest } from "@red-cup-engineering/npm-package-manifest-admission-service";
 
 
-function admittedManifestOf(manifest) {
-  return admitNpmPackageManifest({ type: "NpmPackageManifestCandidate", version: 1, manifest }).manifest;
+function validatedManifestOf(manifest) {
+  return validateNpmPackageManifest({ type: "NpmPackageManifestCandidate", version: 1, manifest }).manifest;
 }
 
 export function normalizePnpmPackageManagerDeclaration(manifest) {
-  const admittedManifest = admittedManifestOf(manifest);
-  if (!admittedManifest.packageManager?.startsWith("pnpm@")) return admittedManifest;
-  const { packageManager: _removedPackageManager, ...normalizedManifest } = admittedManifest;
+  const validatedManifest = validatedManifestOf(manifest);
+  if (!validatedManifest.packageManager?.startsWith("pnpm@")) return validatedManifest;
+  const { packageManager: _removedPackageManager, ...normalizedManifest } = validatedManifest;
   return freezeJson(normalizedManifest);
 }

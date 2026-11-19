@@ -10,14 +10,14 @@ function option(name, required = true) {
 }
 async function document(path) { return JSON.parse(await readFile(path, "utf8")); }
 
-const receiptPath = option("--catalog-receipt", false);
+const recordPath = option("--catalog-receipt", false);
 const staticPath = option("--static-carriers", false);
-const receipt = await materializeNodeRuntimeContainerImageContext({
+const record = await materializeNodeRuntimeContainerImageContext({
   catalogDirectory: option("--catalog-directory"),
-  ...(receiptPath ? { runtimeReleaseCatalogReceipt: await document(receiptPath) } : {}),
+  ...(recordPath ? { runtimeReleaseCatalogReceipt: await document(recordPath) } : {}),
   verificationObservation: await document(option("--verification-observation")),
   layoutPolicy: await document(option("--layout-policy")),
   staticCarriers: staticPath ? await document(staticPath) : [],
   outputDirectory: option("--output"),
 }, { runtimeReleaseAuthority });
-process.stdout.write(`${JSON.stringify(receipt)}\n`);
+process.stdout.write(`${JSON.stringify(record)}\n`);

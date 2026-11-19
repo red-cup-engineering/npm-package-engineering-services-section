@@ -16,22 +16,22 @@ function requireSpecification(value) {
  * @returns {object} A package.json TextFileCreationProjection.
  */
 export function projectNpmPackageManifestFromJsnodeOperation(specification) {
-  const admitted = requireSpecification(specification);
-  const operationTarget = `./${admitted.operation.path}`;
+  const validated = requireSpecification(specification);
+  const operationTarget = `./${validated.operation.path}`;
   const manifest = {
-    name: admitted.packageName,
-    version: admitted.packageVersion,
-    description: admitted.operation.documentation.description,
+    name: validated.packageName,
+    version: validated.packageVersion,
+    description: validated.operation.documentation.description,
     type: "module",
     private: false,
-    license: admitted.license,
+    license: validated.license,
     exports: operationTarget,
-    bin: { [admitted.operation.commandName]: admitted.operation.path },
+    bin: { [validated.operation.commandName]: validated.operation.path },
     files: ["scripts", "README.md", "package.json"],
-    dependencies: admitted.dependencies,
-    devDependencies: admitted.devDependencies,
+    dependencies: validated.dependencies,
+    devDependencies: validated.devDependencies,
     scripts: {
-      check: `node --check ${admitted.operation.path}`,
+      check: `node --check ${validated.operation.path}`,
       test: "node --test test/*.test.mjs",
       "pack:dry-run": "npm pack --dry-run --ignore-scripts",
     },

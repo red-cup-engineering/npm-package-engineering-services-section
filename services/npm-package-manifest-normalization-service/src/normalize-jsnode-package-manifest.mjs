@@ -1,6 +1,6 @@
 import { normalizeNpmPackageLifecycleScripts } from "./normalize-npm-package-lifecycle-scripts.mjs";
 import { applyNpmPackageManifestIdentity } from "./apply-npm-package-manifest-identity.mjs";
-import { admitNpmPackageVersion } from "@red-cup-engineering/npm-package-version-admission-service";
+import { validateNpmPackageVersion } from "@red-cup-engineering/npm-package-version-admission-service";
 import { normalizePnpmEngineDeclaration } from "./normalize-pnpm-engine-declaration.mjs";
 import { normalizePnpmPackageManagerDeclaration } from "./normalize-pnpm-package-manager-declaration.mjs";
 
@@ -13,7 +13,7 @@ export function normalizeJsnodePackageManifest({ manifest, identity } = {}) {
   const identifiedManifest = applyNpmPackageManifestIdentity({ manifest, identity });
   const versionedManifest = {
     ...identifiedManifest,
-    version: admitNpmPackageVersion(identifiedManifest.version),
+    version: validateNpmPackageVersion(identifiedManifest.version),
   };
   const packageManagerNormalizedManifest = normalizePnpmPackageManagerDeclaration(versionedManifest);
   const engineNormalizedManifest = normalizePnpmEngineDeclaration(packageManagerNormalizedManifest);

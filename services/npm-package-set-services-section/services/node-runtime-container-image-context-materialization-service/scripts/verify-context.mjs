@@ -7,7 +7,7 @@ function option(name, required = true) {
   if (required && !value) throw new TypeError(`${name} is required`);
   return value;
 }
-const receiptPath = option("--receipt", false);
-const observation = await verifyNodeRuntimeContainerImageContext({ contextDirectory: option("--context"), ...(receiptPath ? { receipt: JSON.parse(await readFile(receiptPath, "utf8")) } : {}) });
+const recordPath = option("--receipt", false);
+const observation = await verifyNodeRuntimeContainerImageContext({ contextDirectory: option("--context"), ...(recordPath ? { receipt: JSON.parse(await readFile(recordPath, "utf8")) } : {}) });
 process.stdout.write(`${JSON.stringify(observation)}\n`);
 if (!observation.ok) process.exitCode = 1;

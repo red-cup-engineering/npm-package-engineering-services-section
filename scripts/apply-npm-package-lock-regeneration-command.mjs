@@ -34,7 +34,7 @@ export function applyNpmPackageLockRegenerationCommand(command) {
     || command.arguments[1] !== "--package-lock-only"
     || command.arguments[2] !== "--ignore-scripts"
   ) throw new TypeError("command must be an exact NpmPackageLockRegenerationCommand@1");
-  const executionReceipt = executeJavascriptNodeCommand({
+  const executionRecord = executeJavascriptNodeCommand({
     type: "JavascriptNodeCommandExecutionRequest",
     version: 1,
     command: command.command,
@@ -43,7 +43,7 @@ export function applyNpmPackageLockRegenerationCommand(command) {
     environment: null,
     input: null,
   });
-  const execution = executionReceipt.result;
+  const execution = executionRecord.result;
   if (execution.status !== 0) throw new Error(`npm package-lock regeneration failed: ${execution.error || execution.stderr || execution.stdout}`);
   return freezeJson({
     type: "NpmPackageLockRegenerationCommandApplicationReceipt",

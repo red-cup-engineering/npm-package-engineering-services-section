@@ -12,11 +12,11 @@ import { freezeJson } from "@red-cup-engineering/json-engine/freeze-json";
  * (data/records/house-architecture-norms.json, "hull-never-imports-kernel"). The export below
  * keeps its exact name and behavior.
  */
-import { admitNpmPackageManifest } from "@red-cup-engineering/npm-package-manifest-admission-service";
+import { validateNpmPackageManifest } from "@red-cup-engineering/npm-package-manifest-admission-service";
 
 
-function admittedManifestOf(manifest) {
-  return admitNpmPackageManifest({ type: "NpmPackageManifestCandidate", version: 1, manifest }).manifest;
+function validatedManifestOf(manifest) {
+  return validateNpmPackageManifest({ type: "NpmPackageManifestCandidate", version: 1, manifest }).manifest;
 }
 
 /** Rewrites one pnpm-specific lifecycle command to its npm equivalent. */
@@ -26,11 +26,11 @@ function normalizePnpmLifecycleCommand(command) {
 }
 
 export function normalizeNpmPackageLifecycleScripts(manifest) {
-  const admittedManifest = admittedManifestOf(manifest);
-  if (!admittedManifest.scripts) return admittedManifest;
-  const scripts = Object.fromEntries(Object.entries(admittedManifest.scripts).map(([name, command]) => [
+  const validatedManifest = validatedManifestOf(manifest);
+  if (!validatedManifest.scripts) return validatedManifest;
+  const scripts = Object.fromEntries(Object.entries(validatedManifest.scripts).map(([name, command]) => [
     name,
     typeof command === "string" ? normalizePnpmLifecycleCommand(command) : command,
   ]));
-  return freezeJson({ ...admittedManifest, scripts });
+  return freezeJson({ ...validatedManifest, scripts });
 }

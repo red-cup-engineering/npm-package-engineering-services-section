@@ -5,7 +5,7 @@ import { basename, dirname, join, relative, resolve, sep } from "node:path";
 import { sha256Digest, sha256Hex } from "@red-cup-engineering/cryptographic-computer-data-engineering-services-section/integrity";
 import { projectedOutputDestination, refuseProtectedOutput } from "./protected-output.mjs";
 
-export const RECEIPT_FILE = "node-runtime-container-image-context-receipt.json";
+export const RECORD_FILE = "node-runtime-container-image-context-receipt.json";
 const SHA256 = /^[a-f0-9]{64}$/u;
 const SAFE_ID = /^[A-Za-z0-9][A-Za-z0-9._-]*$/u;
 const FORBIDDEN_SEGMENTS = new Set([".git", ".npm", ".cache", ".config", ".ssh", "data"]);
@@ -60,14 +60,14 @@ async function readStableRegularFile(path, contextPath) {
   } finally { await handle.close(); }
 }
 
-async function treeFiles(root, { prefix = "", omitReceipt = false } = {}) {
+async function treeFiles(root, { prefix = "", omitReceipt: omitRecord = false } = {}) {
   const absoluteRoot = resolve(root), result = [];
   async function visit(directory, relation = "") {
     const entries = await readdir(directory, { withFileTypes: true });
     entries.sort((left, right) => left.name.localeCompare(right.name));
     for (const entry of entries) {
       const childRelation = relation ? `${relation}/${entry.name}` : entry.name;
-      if (omitReceipt && childRelation === RECEIPT_FILE) continue;
+      if (omitRecord && childRelation === RECORD_FILE) continue;
       const source = join(directory, entry.name), info = await lstat(source);
       if (info.isSymbolicLink() || (!info.isDirectory() && !info.isFile())) throw new TypeError(`unsupported filesystem carrier ${childRelation}`);
       if (info.isDirectory()) await visit(source, childRelation);
@@ -103,7 +103,7 @@ function publicFiles(files) {
   return files.map(({ path, bytes, mode, sha256: digest }) => Object.freeze({ path, bytes, mode, sha256: digest }));
 }
 
-function admitCatalogReceipt(value) {
+function validateCatalogRecord(value) {
   if (value?.type !== "NodeRuntimeReleaseCatalogReceipt" || value.version !== 1 || !Array.isArray(value.entries) || value.entries.length === 0 || !SHA256.test(value.digest ?? "")) throw new TypeError("catalog receipt must be one non-empty NodeRuntimeReleaseCatalogReceipt v1");
   const entries = [...value.entries].sort((a, b) => String(a.id).localeCompare(String(b.id)));
   if (new Set(entries.map(({ id }) => id)).size !== entries.length) throw new TypeError("catalog entry identities must be unique");
@@ -127,7 +127,7 @@ function normalizePolicy(value, catalog) {
   const catalogIds = [...catalog.entries].map(({ id }) => id).sort();
   if (json(entries.map(({ id }) => id)) !== json(catalogIds)) throw new TypeError("layout policy must map every catalog entry exactly once");
   for (let left = 0; left < entries.length; left += 1) for (let right = left + 1; right < entries.length; right += 1) if (overlaps(entries[left].mount, entries[right].mount)) throw new TypeError(`layout mounts overlap: ${entries[left].mount} and ${entries[right].mount}`);
-  if (entries.some(({ mount }) => overlaps(mount, RECEIPT_FILE))) throw new TypeError("layout mount overlaps the context receipt");
+  if (entries.some(({ mount }) => overlaps(mount, RECORD_FILE))) throw new TypeError("layout mount overlaps the context receipt");
   return Object.freeze({ type: value.type, version: value.version, entries: Object.freeze(entries) });
 }
 
@@ -184,7 +184,7 @@ async function writeBytesExact(bytes, target, mode) {
 
 function assertNoDestinationOverlap(policy, staticFiles) {
   for (const { mount } of policy.entries) for (const { path } of staticFiles) if (overlaps(mount, path)) throw new TypeError(`static carrier ${path} overlaps runtime mount ${mount}`);
-  if (staticFiles.some(({ path }) => overlaps(path, RECEIPT_FILE))) throw new TypeError("static carrier overlaps the context receipt");
+  if (staticFiles.some(({ path }) => overlaps(path, RECORD_FILE))) throw new TypeError("static carrier overlaps the context receipt");
 }
 
 function requireAuthority(authority) {
@@ -194,9 +194,9 @@ function requireAuthority(authority) {
 
 async function readCatalog(catalogDirectory, supplied) {
   const persisted = JSON.parse(await readFile(join(catalogDirectory, "runtime-release-catalog.json"), "utf8"));
-  const admitted = admitCatalogReceipt(persisted);
-  if (supplied !== undefined && json(admitCatalogReceipt(supplied)) !== json(admitted)) throw new TypeError("supplied catalog receipt differs from its catalog directory");
-  return admitted;
+  const validated = validateCatalogRecord(persisted);
+  if (supplied !== undefined && json(validateCatalogRecord(supplied)) !== json(validated)) throw new TypeError("supplied catalog receipt differs from its catalog directory");
+  return validated;
 }
 
 /** Prevent one untrusted output coordinate from writing into an original
@@ -271,18 +271,18 @@ export async function materializeNodeRuntimeContainerImageContext(input, { runti
       staticCarriers: publicFiles(staticFiles),
       files: publicFiles(finalMeasured),
     });
-    const receipt = Object.freeze({ ...body, digest: digestRecord(body) });
-    await writeFile(join(output, RECEIPT_FILE), `${JSON.stringify(receipt, null, 2)}\n`, { flag: "wx", mode: 0o644 });
-    const selfObservation = await verifyNodeRuntimeContainerImageContext({ contextDirectory: output, receipt });
+    const record = Object.freeze({ ...body, digest: digestRecord(body) });
+    await writeFile(join(output, RECORD_FILE), `${JSON.stringify(record, null, 2)}\n`, { flag: "wx", mode: 0o644 });
+    const selfObservation = await verifyNodeRuntimeContainerImageContext({ contextDirectory: output, receipt: record });
     if (!selfObservation.ok) throw new Error(`materialized context failed its owner verification: ${selfObservation.defects.join(", ")}`);
-    return receipt;
+    return record;
   } catch (error) {
     await rm(output, { recursive: true, force: true });
     throw error;
   }
 }
 
-function admitReceipt(value) {
+function validateRecord(value) {
   if (value?.type !== "NodeRuntimeContainerImageContextReceipt" || value.version !== 1 || value.identityScope !== "regular-file-path-bytes-mode" || !Array.isArray(value.entries) || !Array.isArray(value.staticCarriers) || !Array.isArray(value.files) || !SHA256.test(String(value.runtimeReleaseCatalogDigest ?? "")) || !/^sha256:[a-f0-9]{64}$/u.test(value.policyDigest ?? "") || !/^sha256:[a-f0-9]{64}$/u.test(value.verificationObservationDigest ?? "") || !/^sha256:[a-f0-9]{64}$/u.test(value.digest ?? "")) throw new TypeError("value is not a NodeRuntimeContainerImageContextReceipt v1");
   if (value.policy?.type !== "NodeRuntimeContainerImageLayoutPolicy" || value.policy.version !== 1 || !Array.isArray(value.policy.entries)) throw new TypeError("context receipt layout policy is malformed");
   const entryIds = new Set(), mounts = [];
@@ -300,28 +300,28 @@ function admitReceipt(value) {
   for (let left = 0; left < mounts.length; left += 1) for (let right = left + 1; right < mounts.length; right += 1) if (overlaps(mounts[left], mounts[right])) throw new TypeError("context receipt runtime mounts overlap");
   const policyMap = new Map(value.policy.entries.map((entry) => [entry?.id, entry?.mount]));
   if (policyMap.size !== value.entries.length || value.entries.some((entry) => policyMap.get(entry.id) !== entry.mount)) throw new TypeError("context receipt entries disagree with its layout policy");
-  const admitIdentities = (identities, label) => {
+  const validateIdentities = (identities, label) => {
     const paths = new Set();
     for (const identity of identities) {
       const path = exactRelativePath(identity?.path, `${label} path`);
-      if (path === RECEIPT_FILE || paths.has(path) || !Number.isSafeInteger(identity.bytes) || identity.bytes < 0 || !Number.isInteger(identity.mode) || identity.mode < 0 || identity.mode > 0o777 || !SHA256.test(identity.sha256 ?? "")) throw new TypeError(`${label} identities are malformed or repeated`);
+      if (path === RECORD_FILE || paths.has(path) || !Number.isSafeInteger(identity.bytes) || identity.bytes < 0 || !Number.isInteger(identity.mode) || identity.mode < 0 || identity.mode > 0o777 || !SHA256.test(identity.sha256 ?? "")) throw new TypeError(`${label} identities are malformed or repeated`);
       paths.add(path);
     }
   };
-  admitIdentities(value.files, "context file");
-  admitIdentities(value.staticCarriers, "static carrier");
+  validateIdentities(value.files, "context file");
+  validateIdentities(value.staticCarriers, "static carrier");
   const body = { type: value.type, version: value.version, runtimeReleaseCatalogDigest: value.runtimeReleaseCatalogDigest, verificationObservationDigest: value.verificationObservationDigest, policy: value.policy, policyDigest: value.policyDigest, identityScope: value.identityScope, entries: value.entries, staticCarriers: value.staticCarriers, files: value.files };
   if (digestRecord(value.policy) !== value.policyDigest || digestRecord(body) !== value.digest) throw new TypeError("context receipt canonical digest is invalid");
   return value;
 }
 
-export async function verifyNodeRuntimeContainerImageContext({ contextDirectory, receipt } = {}) {
+export async function verifyNodeRuntimeContainerImageContext({ contextDirectory, receipt: record } = {}) {
   const root = await realpath(contextDirectory ?? "");
   // Receipt custody belongs to the materialized context itself. An outside
   // caller's valid original receipt cannot override a replaced/missing local
   // manifest; accept both only when they describe the exact same document.
-  const recorded = admitReceipt(JSON.parse(await readFile(join(root, RECEIPT_FILE), "utf8")));
-  const supplied = receipt === undefined ? recorded : admitReceipt(receipt);
+  const recorded = validateRecord(JSON.parse(await readFile(join(root, RECORD_FILE), "utf8")));
+  const supplied = record === undefined ? recorded : validateRecord(record);
   const defects = [];
   if (json(recorded) !== json(supplied))
     defects.push("stored-context-receipt-differs");
