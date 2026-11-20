@@ -10,8 +10,12 @@
     "./package.json": "./package.json"
   },
   "files": [
-    "src"
+    "src",
+    "test/semver-range.test.mjs"
   ],
+  "scripts": {
+    "test": "node --test test/semver-range.test.mjs"
+  },
   "engines": {
     "node": ">=24.2.0"
   },

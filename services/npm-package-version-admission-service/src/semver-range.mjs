@@ -14,19 +14,24 @@ const at = (major, minor, patch, prerelease = []) => ({ major, minor, patch, pre
 const zero = at(0, 0, 0);
 const empty = at(0, 0, 0, ["0"]);
 
-/** Require the exact SemVer spelling used for source versions. */
+function readVersion(text) {
+  if (typeof text !== "string" || text.length > 256) return null;
+  const match = version.exec(text);
+  if (match?.[0] !== text) return null;
+  const [major, minor, patch] = match.slice(1, 4).map(Number);
+  if (![major, minor, patch].every(Number.isSafeInteger)) return null;
+  return at(major, minor, patch, match[4]?.split("."));
+}
+
+/** Require exact spelling within npm's length and numeric bounds. */
 export function isExactVersion(text) {
-  return typeof text === "string" && version.exec(text)?.[0] === text;
+  return readVersion(text) !== null;
 }
 
 /** Read a numeric-bounded npm version, including its optional v prefix. */
 export function parseVersion(text) {
   if (typeof text !== "string" || text.length > 256) return null;
-  const match = version.exec(text.trim().replace(/^v/u, ""));
-  if (!match) return null;
-  const [major, minor, patch] = match.slice(1, 4).map(Number);
-  if (![major, minor, patch].every(Number.isSafeInteger)) return null;
-  return at(major, minor, patch, match[4]?.split("."));
+  return readVersion(text.trim().replace(/^v/u, ""));
 }
 
 function compareIdentifier(left, right) {
@@ -77,10 +82,7 @@ function nextPartial(major, minor, prerelease = ["0"]) {
   return minor === null ? at(major + 1, 0, 0, prerelease) : at(major, minor + 1, 0, prerelease);
 }
 
-function hyphenRange(left, right) {
-  const low = readPartial(left);
-  const high = readPartial(right);
-  if (!low || !high) return null;
+function hyphenRange(low, high) {
   const lower = [">=", at(low.major ?? 0, low.minor ?? 0, low.patch ?? 0, low.prerelease)];
   if (high.major === null) return [lower];
   return [lower, high.patch === null ? ["<", nextPartial(high.major, high.minor)] : ["<=", high]];
@@ -107,27 +109,40 @@ function comparator(operator, parsed) {
 
 function readComparatorSet(alternative) {
   const text = alternative.trim().replace(/(>=|<=|>|<|=|\^|~>?)\s+/gu, "$1");
-  if (!text) return [];
+  if (!text) return { terms: [], namesPrerelease: false };
   const hyphen = /^(\S+)\s+-\s+(\S+)$/u.exec(text);
-  if (hyphen) return hyphenRange(hyphen[1], hyphen[2]);
-  const set = [];
+  if (hyphen) {
+    const low = readPartial(hyphen[1]), high = readPartial(hyphen[2]);
+    if (!low || !high) return null;
+    return { terms: hyphenRange(low, high), namesPrerelease: Boolean(low.prerelease.length || high.prerelease.length) };
+  }
+  const terms = [];
+  let namesPrerelease = false;
   for (const token of text.split(/\s+/u)) {
     const [, operator = "=", version] = /^(>=|<=|>|<|=|\^|~>?)?(.*)$/u.exec(token);
     const parsed = readPartial(version);
     if (!parsed) return null;
-    set.push(...comparator(operator, parsed));
+    namesPrerelease ||= parsed.prerelease.length > 0;
+    terms.push(...comparator(operator, parsed));
   }
-  return set;
+  return { terms, namesPrerelease };
+}
+
+function readRange(range) {
+  if (typeof range !== "string") return null;
+  const alternatives = range.split("||").map(readComparatorSet);
+  if (alternatives.some(alternative => alternative === null || alternative.terms.some(([, bound]) => (
+    ![bound.major, bound.minor, bound.patch].every(Number.isSafeInteger)
+  )))) return null;
+  const normalized = alternatives.map(({ terms }) => terms.filter(([operator, bound]) => operator !== ">=" || compare(bound, zero) !== 0));
+  return {
+    sets: normalized.some(set => set.length === 0) ? [[]] : normalized,
+    namesPrerelease: alternatives.some(alternative => alternative.namesPrerelease),
+  };
 }
 
 function rangeSets(range) {
-  if (typeof range !== "string") return null;
-  const sets = range.split("||").map(readComparatorSet);
-  if (sets.some(set => set === null || set.some(([, bound]) => (
-    ![bound.major, bound.minor, bound.patch].every(Number.isSafeInteger)
-  )))) return null;
-  const normalized = sets.map(set => set.filter(([operator, bound]) => operator !== ">=" || compare(bound, zero) !== 0));
-  return normalized.some(set => set.length === 0) ? [[]] : normalized;
+  return readRange(range)?.sets ?? null;
 }
 
 function matchesComparator(current, [operator, bound]) {
@@ -166,11 +181,12 @@ export function isBoundedRange(range) {
 export function exactVersion(range) {
   if (typeof range !== "string") return null;
   const text = range.trim().replace(/^(?:=\s*)?v?/u, "");
-  return isExactVersion(text) && parseVersion(text) ? text : null;
+  return isExactVersion(text) ? text : null;
 }
 
-/** Whether a source range spells an explicit prerelease comparator. */
-export const rangeNamesPrerelease = (range) => /\d+\.\d+\.\d+-[0-9A-Za-z]/u.test(String(range));
+/** Whether a valid npm range has an authored prerelease endpoint. Synthetic
+ * exclusive bounds and version-shaped build metadata do not count. */
+export const rangeNamesPrerelease = (range) => readRange(range)?.namesPrerelease ?? false;
 
 /** Choose the highest admitted version. Keep the first spelling at equal precedence. */
 export function highestSatisfying(versions, range) {
