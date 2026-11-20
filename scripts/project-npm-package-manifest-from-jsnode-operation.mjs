@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { runJavascriptNodeOperation } from "@red-cup-engineering/node-js-function-engineering-services-section/operation";
-import { validateTextFileCreationProjection } from "@red-cup-engineering/computer-file-engineering-services-section/admit-text-file-creation-projection";
+import { admitTextFileCreationProjection } from "@red-cup-engineering/computer-file-engineering-services-section/admit-text-file-creation-projection";
 
 function requireSpecification(value) {
   if (value?.type !== "JsnodeOperationPackageSpecification" || value.version !== 1) {
@@ -37,7 +37,7 @@ export function projectNpmPackageManifestFromJsnodeOperation(specification) {
     },
     engines: { node: ">=24.2.0" },
   };
-  const projection = validateTextFileCreationProjection({
+  const projection = admitTextFileCreationProjection({
     type: "TextFileCreationProjection",
     version: 1,
     path: "package.json",
