@@ -1,8 +1,9 @@
 #!/usr/bin/env node
+import { makeTemporaryDirectory } from "@red-cup-engineering/computer-file-engineering-services-section/temporary-directory";
 import { execFile } from "node:child_process";
 import { once } from "node:events";
-import { lstat, mkdtemp, readFile, rm } from "node:fs/promises";
-import { tmpdir } from "node:os";
+import { lstat, readFile, rm } from "node:fs/promises";
+
 import { basename, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { promisify } from "node:util";
 import { freezeJson } from "@red-cup-engineering/json-engine";
@@ -67,7 +68,9 @@ export async function packNpmPackage(request, capabilities = {}) {
   const destinationDirectory = await existingDirectory(request.destinationDirectory, "destinationDirectory");
   const execute = capabilities.execute ?? executeNpm;
   if (typeof execute !== "function") fail("INVALID_CAPABILITY", "execute capability must be a function");
-  const cacheDirectory = await mkdtemp(join(tmpdir(), "npm-package-packing-cache-"));
+  const temporaryDirectory = makeTemporaryDirectory("npm-package-packing-cache");
+  try {
+const cacheDirectory = temporaryDirectory.path;
   try {
     let execution;
     try {
@@ -89,6 +92,10 @@ export async function packNpmPackage(request, capabilities = {}) {
     return freezeJson({ type: "NpmPackagePackingReceipt", version: 1, carrierDirectory, destinationDirectory, artifactPath, filename });
   } finally {
     await rm(cacheDirectory, { recursive: true, force: true });
+  }
+
+  } finally {
+    temporaryDirectory.remove();
   }
 }
 
