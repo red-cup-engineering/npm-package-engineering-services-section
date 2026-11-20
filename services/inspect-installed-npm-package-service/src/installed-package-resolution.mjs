@@ -19,7 +19,7 @@ const RELEASE_RANGE = /^\^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/u;
  * @param {unknown} installed The installed manifest's version.
  * @returns {boolean} True when the installed version satisfies the declaration.
  */
-export function declarationValidatesVersion(declared, installed) {
+export function declarationAdmitsVersion(declared, installed) {
   const range = RELEASE_RANGE.exec(declared);
   if (!range) return installed === declared;
   const actual = typeof installed === "string" ? RELEASE.exec(installed) : null;
@@ -116,7 +116,7 @@ export async function inspectInstalledNpmPackageResolution(request, capabilities
         await access(entryPath, constants.X_OK);
       }
     }
-    if (manifest.name !== request.expectedName || !declarationValidatesVersion(request.expectedVersion, manifest.version)) defects.push({ law: "installed-identity", expectedName: request.expectedName, expectedVersion: request.expectedVersion, actualName: manifest.name ?? null, actualVersion: manifest.version ?? null, packageRoot, entryPath });
+    if (manifest.name !== request.expectedName || !declarationAdmitsVersion(request.expectedVersion, manifest.version)) defects.push({ law: "installed-identity", expectedName: request.expectedName, expectedVersion: request.expectedVersion, actualName: manifest.name ?? null, actualVersion: manifest.version ?? null, packageRoot, entryPath });
     if (request.projectRoot !== null && request.packageRoot !== null && packageRoot !== await realpath(request.packageRoot)) defects.push({ law: "installed-resolution-path", expectedPackageRoot: request.packageRoot, actualPackageRoot: packageRoot, entryPath });
   } catch (error) {
     defects.push({ law: request.projectRoot === null ? "installed-package-missing" : "installed-package-resolution", expectedName: request.expectedName, expectedVersion: request.expectedVersion, diagnostic: error.message, code: error.code ?? null, spawnError: error.spawnError ?? null });

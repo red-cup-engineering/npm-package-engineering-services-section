@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-import { validateNpmPackageManifest } from "@red-cup-engineering/npm-package-manifest-admission-service";
-import { validateNpmPackageVersion } from "@red-cup-engineering/npm-package-version-admission-service";
+import { admitNpmPackageManifest } from "@red-cup-engineering/npm-package-manifest-admission-service";
+import { admitNpmPackageVersion } from "@red-cup-engineering/npm-package-version-admission-service";
 
 import operationInputSchema from "../data/records/project-npm-package-manifest-with-identity.input.schema.json" with { type: "json" };
 import operationOutputSchema from "../data/records/project-npm-package-manifest-with-identity.output.schema.json" with { type: "json" };
@@ -23,9 +23,9 @@ export function projectNpmPackageManifestWithIdentity(request) {
   ) {
     throw new TypeError("request must be an exact NpmPackageManifestIdentityProjectionRequest@1");
   }
-  const body = validateNpmPackageManifest({ type: "NpmPackageManifestCandidate", version: 1, manifest: request.manifest }).manifest;
-  const projected = { ...body, name: request.name, version: validateNpmPackageVersion(request.packageVersion) };
-  return validateNpmPackageManifest({ type: "NpmPackageManifestCandidate", version: 1, manifest: projected });
+  const body = admitNpmPackageManifest({ type: "NpmPackageManifestCandidate", version: 1, manifest: request.manifest }).manifest;
+  const projected = { ...body, name: request.name, version: admitNpmPackageVersion(request.packageVersion) };
+  return admitNpmPackageManifest({ type: "NpmPackageManifestCandidate", version: 1, manifest: projected });
 }
 
 if (import.meta.main) {

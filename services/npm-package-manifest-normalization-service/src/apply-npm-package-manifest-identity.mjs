@@ -9,15 +9,15 @@ import { freezeJson } from "@red-cup-engineering/json-engine/freeze-json";
  * scripts/apply-npm-package-manifest-identity.mjs -- see
  * normalize-npm-package-lifecycle-scripts.mjs's header comment for why.
  */
-import { validateNpmPackageManifest } from "@red-cup-engineering/npm-package-manifest-admission-service";
+import { admitNpmPackageManifest } from "@red-cup-engineering/npm-package-manifest-admission-service";
 
 
-function validatedManifestOf(manifest) {
-  return validateNpmPackageManifest({ type: "NpmPackageManifestCandidate", version: 1, manifest }).manifest;
+function admittedManifestOf(manifest) {
+  return admitNpmPackageManifest({ type: "NpmPackageManifestCandidate", version: 1, manifest }).manifest;
 }
 
 export function applyNpmPackageManifestIdentity({ manifest, identity } = {}) {
-  const validatedManifest = validatedManifestOf(manifest);
+  const admittedManifest = admittedManifestOf(manifest);
   if (!identity || typeof identity.name !== "string" || identity.name.length === 0) throw new TypeError("identity.name must be a nonempty string");
-  return freezeJson({ ...validatedManifest, name: identity.name });
+  return freezeJson({ ...admittedManifest, name: identity.name });
 }

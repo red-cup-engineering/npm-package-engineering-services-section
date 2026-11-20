@@ -1,5 +1,5 @@
-import { validateNpmOwner } from "@red-cup-engineering/npm-owner-admission-service";
-import { validateNpmPackageNameLeaf } from "@red-cup-engineering/npm-package-name-leaf-admission-service";
+import { admitNpmOwner } from "@red-cup-engineering/npm-owner-admission-service";
+import { admitNpmPackageNameLeaf } from "@red-cup-engineering/npm-package-name-leaf-admission-service";
 
 /**
  * Forms one scoped npm package name from separately admitted owner and leaf inputs.
@@ -17,5 +17,5 @@ export function formNpmScopedPackageName(request) {
   ) {
     throw new TypeError("request must be an exact NpmScopedPackageNameFormationRequest@1");
   }
-  return `@${validateNpmOwner(request.owner)}/${validateNpmPackageNameLeaf(request.leaf)}`;
+  return `@${admitNpmOwner(request.owner)}/${admitNpmPackageNameLeaf(request.leaf)}`;
 }

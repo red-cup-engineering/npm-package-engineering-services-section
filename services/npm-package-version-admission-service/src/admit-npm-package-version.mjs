@@ -7,7 +7,7 @@ import { isExactVersion } from "./semver-range.mjs";
  * @returns {string} The unchanged admitted version.
  * @throws {TypeError} When the candidate is not exact.
  */
-export function validateNpmPackageVersion(candidate) {
+export function admitNpmPackageVersion(candidate) {
   if (!isExactVersion(candidate)) {
     throw new TypeError("candidate must be an explicit exact SemVer npm package version");
   }

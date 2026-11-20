@@ -4,7 +4,7 @@
  * @returns {string} The unchanged leaf.
  * @throws {TypeError} When the candidate is invalid.
  */
-export function validateNpmPackageNameLeaf(candidate) {
+export function admitNpmPackageNameLeaf(candidate) {
   if (typeof candidate !== "string" || !/^[a-z0-9](?:[a-z0-9._-]*[a-z0-9])?$/u.test(candidate)) {
     throw new TypeError("candidate must be a canonical lowercase npm package-name leaf");
   }

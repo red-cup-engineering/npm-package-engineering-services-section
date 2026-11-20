@@ -10,18 +10,18 @@ import { freezeJson } from "@red-cup-engineering/json-engine/freeze-json";
  * scripts/normalize-pnpm-engine-declaration.mjs -- see
  * normalize-npm-package-lifecycle-scripts.mjs's header comment for why.
  */
-import { validateNpmPackageManifest } from "@red-cup-engineering/npm-package-manifest-admission-service";
+import { admitNpmPackageManifest } from "@red-cup-engineering/npm-package-manifest-admission-service";
 
 
-function validatedManifestOf(manifest) {
-  return validateNpmPackageManifest({ type: "NpmPackageManifestCandidate", version: 1, manifest }).manifest;
+function admittedManifestOf(manifest) {
+  return admitNpmPackageManifest({ type: "NpmPackageManifestCandidate", version: 1, manifest }).manifest;
 }
 
 export function normalizePnpmEngineDeclaration(manifest) {
-  const validatedManifest = validatedManifestOf(manifest);
-  if (!validatedManifest.engines?.pnpm) return validatedManifest;
-  const { pnpm: _removedPnpmEngine, ...engines } = validatedManifest.engines;
-  const { engines: _previousEngines, ...manifestWithoutEngines } = validatedManifest;
+  const admittedManifest = admittedManifestOf(manifest);
+  if (!admittedManifest.engines?.pnpm) return admittedManifest;
+  const { pnpm: _removedPnpmEngine, ...engines } = admittedManifest.engines;
+  const { engines: _previousEngines, ...manifestWithoutEngines } = admittedManifest;
   return freezeJson(Object.keys(engines).length === 0
     ? manifestWithoutEngines
     : { ...manifestWithoutEngines, engines });
