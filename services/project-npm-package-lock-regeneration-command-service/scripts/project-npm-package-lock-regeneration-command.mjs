@@ -2,8 +2,8 @@
 import path from "node:path";
 import { freezeJson } from "@red-cup-engineering/json-engine";
 
-import operationInputSchema from "../data/records/schema/project-npm-package-lock-regeneration-command.input.schema.json" with { type: "json" };
-import operationOutputSchema from "../data/records/schema/project-npm-package-lock-regeneration-command.output.schema.json" with { type: "json" };
+import operationInputSchema from "../data/records/schemas/project-npm-package-lock-regeneration-command.input.schema.json" with { type: "json" };
+import operationOutputSchema from "../data/records/schemas/project-npm-package-lock-regeneration-command.output.schema.json" with { type: "json" };
 import { runJavascriptNodeOperation } from "@red-cup-engineering/node-js-function-engineering-services-section/operation";
 
 /**

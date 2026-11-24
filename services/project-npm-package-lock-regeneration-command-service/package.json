@@ -17,7 +17,7 @@
   "files": [
     "scripts",
     "package.json",
-    "data/records/schema"
+    "data/records/schemas"
   ],
   "dependencies": {
     "@red-cup-engineering/json-engine": "^0.5.0",
