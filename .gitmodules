@@ -3,6 +3,6 @@
 	url = https://github.com/red-cup-engineering/disk-package-observation-app.git
 	branch = main
 [submodule "services/npm-package-set-services-section/services/node-runtime-materialization-engineering-services-section"]
-	path = services/npm-package-set-services-section/services/node-runtime-materialization-engineering-services-section
+	path = services/npm-package-set-engineering-services-section/services/node-runtime-materialization-engineering-services-section
 	url = https://github.com/red-cup-engineering/node-runtime-materialization-engineering-services-section.git
 	branch = main

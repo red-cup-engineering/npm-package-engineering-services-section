@@ -1,4 +1,4 @@
-# npm package-set services section
+# Npm package set engineering services section
 
 A package set is an explicit collection of npm package directory carriers. It
 does not imply dependency, workspace, registry, or ecosystem relations among
